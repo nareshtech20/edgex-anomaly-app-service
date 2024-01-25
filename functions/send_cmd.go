@@ -24,7 +24,7 @@ import (
 	"time"
 
 	"github.com/edgexfoundry/app-functions-sdk-go/v3/pkg/interfaces"
-        "github.com/edgexfoundry/go-mod-core-contracts/v3/dtos"
+    "github.com/edgexfoundry/go-mod-core-contracts/v3/dtos"
 	"github.com/edgexfoundry/go-mod-core-contracts/v3/clients/http"
 	"github.com/edgexfoundry/go-mod-core-contracts/v3/dtos/requests"
 	"github.com/edgexfoundry/go-mod-core-contracts/v3/dtos/common"
@@ -62,7 +62,7 @@ func(s *SendCommand) CheckAndSendCommand(funcCtx interfaces.AppFunctionContext, 
 			if reading.ResourceName == "Uint16" && intVar > 120 {
 				lc.Info("Sending Insulin actuate command...")
 
-				device := "anomaly-injector"
+				device := "insulin-injector"
 				command := "WriteBoolValue"
 				settings := make(map[string]string)
 				settings["Bool"] = "true"
@@ -99,7 +99,7 @@ func stopInsulin(funcCtx interfaces.AppFunctionContext) {
 	lc.Info("Sending Insulin stop command...")
 
 	//device := "Random-Boolean-Device"
-	device := "anomaly-injector"
+	device := "insulin-injector"
 	command := "WriteBoolValue"
 	settings := make(map[string]string)
 	settings["Bool"] = "false"
