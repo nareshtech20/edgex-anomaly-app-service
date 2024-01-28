@@ -32,9 +32,9 @@ func makeMessageHandler() mqtt.MessageHandler {
 		if err != nil {
 			log.Error("Json Marshal...")
 		}
-		res, err := sendCommand(device, command, "get", string(msg.Payload()))
+		res, err := sendCommand(device, command, "GET", string(msg.Payload()))
 		if err != nil {
-			log.Error("Json Marshal...")
+			log.Error("Error - send live data to anomaly service...")
 		}
 		log.Debug("sendCommand.."+res)
 		log.Debug("jsonData..."+string(jsonData))
@@ -45,7 +45,7 @@ func makeMessageHandler() mqtt.MessageHandler {
 func sendCommand(deviceName string, commandName string, method string, value string) (string, error) {
 
 	log.Info("Sending anomaly update..."+value)
-	url := "http://10.239.80.228:8081/edge/save?deviceId=35&value="+value
+	url := "http://10.239.80.228:8081/edge/save?deviceId=34&value="+value+"&sensor=glucose"
 
 	req, err := http.NewRequest(method, url, nil)
 	if err != nil {
@@ -86,4 +86,8 @@ func Subscribe() {
 	fmt.Printf("Successfully subscribed to topic: %s\n", "glucose")
 
 	select {} // block forever
+    	// Start a goroutine to keep the application running until interrupted.
+    	//go func() {
+        //	select {}
+    	//}()	
 }
